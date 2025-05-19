@@ -22,7 +22,7 @@ export class OpenAiService {
       temperature: 0.7,
     });
 
-    console.log(response.output_text);
-    return response.output_text ?? '';
+    const output = response.output_text ?? '';
+    return output;
   }
 }
