@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { OpenAiService } from '../llm/openai.service';
-import * as quotes from './quotes.json';
+import * as quotes from '../../data/quotes.json';
 import { buildPrompt } from './prompt-builder';
 import { CreateCounselingRequestDto } from './dto';
 

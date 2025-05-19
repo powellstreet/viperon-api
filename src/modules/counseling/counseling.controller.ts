@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { SkipAuth } from 'src/common/decorators';
@@ -6,11 +6,15 @@ import { SkipAuth } from 'src/common/decorators';
 import { CounselingService } from './counseling.service';
 
 import { CreateCounselingRequestDto, CreateCounselingResponseDto } from './dto';
+import { McpEngineService } from '../engine/mcp-engine.service';
 @SkipAuth()
 @ApiTags('counseling')
 @Controller('counseling')
 export class CounselingController {
-  constructor(private readonly counselingService: CounselingService) {}
+  constructor(
+    private readonly counselingService: CounselingService,
+    private readonly mcpEngineService: McpEngineService,
+  ) {}
 
   @Post()
   @ApiOperation({ summary: '상담 데이터 생성' })
@@ -22,19 +26,9 @@ export class CounselingController {
   async create(
     @Body() body: CreateCounselingRequestDto,
   ): Promise<CreateCounselingResponseDto> {
-    const data = this.counselingService.generateReply(body);
-    return data;
-  }
-
-  @Get()
-  @ApiOperation({ summary: '모든 상담 데이터 조회' })
-  @ApiResponse({
-    status: 200,
-    description: '모든 상담 데이터 목록',
-    type: [CreateCounselingResponseDto],
-  })
-  async findAll(): Promise<CreateCounselingResponseDto[]> {
-    const data = this.counselingService.findAll();
-    return data;
+    // const reply = this.counselingService.generateReply(body);
+    // return reply;
+    const reply = this.mcpEngineService.run(body.message);
+    return reply;
   }
 }
