@@ -4,15 +4,17 @@ import { AuthGuard } from './common/guards';
 
 // modules
 import { ConfigureModule } from './config/config.module';
-import { TemplateModule } from './modules/template/template.module';
+import { CounselingModule } from './modules/counseling/counseling.module';
+import { OpenAiService } from './modules/llm/openai.service';
 
 @Module({
-  imports: [ConfigureModule, TemplateModule],
+  imports: [ConfigureModule, CounselingModule],
   providers: [
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
     },
+    OpenAiService,
   ],
 })
 export class AppModule {}
