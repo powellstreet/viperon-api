@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Agent } from './agent.interface';
 import { McpContext } from 'src/modules/engine/mcp-context.interface';
-import quotes from '../../data/quotes.json';
+import * as quotes from '../../data/quotes.json';
 
 @Injectable()
 export class QuoteSelectorAgent implements Agent {

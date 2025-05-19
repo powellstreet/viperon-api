@@ -6,11 +6,15 @@ import { SkipAuth } from 'src/common/decorators';
 import { CounselingService } from './counseling.service';
 
 import { CreateCounselingRequestDto, CreateCounselingResponseDto } from './dto';
+import { McpEngineService } from '../engine/mcp-engine.service';
 @SkipAuth()
 @ApiTags('counseling')
 @Controller('counseling')
 export class CounselingController {
-  constructor(private readonly counselingService: CounselingService) {}
+  constructor(
+    private readonly counselingService: CounselingService,
+    private readonly mcpEngineService: McpEngineService,
+  ) {}
 
   @Post()
   @ApiOperation({ summary: '상담 데이터 생성' })
@@ -22,7 +26,9 @@ export class CounselingController {
   async create(
     @Body() body: CreateCounselingRequestDto,
   ): Promise<CreateCounselingResponseDto> {
-    const reply = this.counselingService.generateReply(body);
+    // const reply = this.counselingService.generateReply(body);
+    // return reply;
+    const reply = this.mcpEngineService.run(body.message);
     return reply;
   }
 }
