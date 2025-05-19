@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { SkipAuth } from 'src/common/decorators';
@@ -22,19 +22,7 @@ export class CounselingController {
   async create(
     @Body() body: CreateCounselingRequestDto,
   ): Promise<CreateCounselingResponseDto> {
-    const data = this.counselingService.generateReply(body);
-    return data;
-  }
-
-  @Get()
-  @ApiOperation({ summary: '모든 상담 데이터 조회' })
-  @ApiResponse({
-    status: 200,
-    description: '모든 상담 데이터 목록',
-    type: [CreateCounselingResponseDto],
-  })
-  async findAll(): Promise<CreateCounselingResponseDto[]> {
-    const data = this.counselingService.findAll();
-    return data;
+    const reply = this.counselingService.generateReply(body);
+    return reply;
   }
 }
