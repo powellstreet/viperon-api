@@ -1,6 +1,8 @@
-# Project Name
+# Viperon API
 
-프로젝트를 설명해주세요.
+<img src="./docs/images/viperon_profile.png" alt="Viperon Profile" width="300" />
+
+당신의 고민을 듣고 현명한 조언을 돌려주는 Viperon 의 API 서버입니다.
 
 ## Getting Started
 
@@ -11,7 +13,7 @@
 레포지토리를 로컬에 클론하세요.
 
 ```bash
-git clone {your_github_repository}
+git clone https://github.com/powellstreet/viperon-api
 ```
 
 ### 2. Install Dependencies
@@ -19,7 +21,7 @@ git clone {your_github_repository}
 프로젝트 디렉토리로 이동한 뒤
 
 ```
-cd your_project_name
+cd viperon-api
 ```
 
 의존성을 설치하세요.
@@ -52,4 +54,3 @@ API 문서는 `Swagger` 를 통해서 확인하실 수 있습니다. 서버가 �
 ```bash
 http://localhost:3000/api
 ```
-# nestjs_starter_template
