@@ -1,8 +1,8 @@
-# Viperon API
+# Viperon MCP Server
 
 <img src="./docs/images/viperon_profile.png" alt="Viperon Profile" width="300" />
 
-당신의 고민을 듣고 현명한 조언을 돌려주는 Viperon 의 API 서버입니다.
+당신의 고민을 듣고 현명한 조언을 돌려주는 Viperon MCP 서버입니다. MCP 프로토콜을 기반으로 요청을 보내면, 메시지에 맞는 감정 태그, 명언, 그리고 상담 메시지를 반환합니다.
 
 ## Getting Started
 
@@ -47,10 +47,32 @@ $ yarn start:dev
 $ yarn start:prod
 ```
 
-## API Documentation
+## MCP API 사용법 (JSON-RPC 2.0)
 
-API 문서는 `Swagger` 를 통해서 확인하실 수 있습니다. 서버가 켜진 후, 다음 엔드포인트를 통해서 API 문서에 접근할 수 있습니다.
+모든 호출은 POST http://localhost:3000/jsonrpc
+
+- 헤더: Content-Type: application/json
+- 바디: 아래와 같이 JSON-RPC 2.0 포맷을 사용
+
+예시 요청/응답
+
+### 감정 태그 추출 요청(context.analyze)
 
 ```bash
-http://localhost:3000/api
+{
+  "jsonrpc": "2.0",
+  "method": "context.analyze",
+  "params": { "userMessage": "집에 오는 길에 고양이를 만나서 인사했어" },
+  "id": 1
+}
+```
+
+### 감정 태그 추출 응답
+
+```bash
+{
+  "jsonrpc": "2.0",
+  "result": { "emotionTag": "행복" },
+  "id": 1
+}
 ```

@@ -18,25 +18,27 @@ export class AuthGuard implements CanActivate {
       context.getClass(),
     ]);
 
-    // public route인 경우 인증을 건너뛴다
-    if (isPublic) {
-      return true;
-    }
+    return true;
 
-    const request = context.switchToHttp().getRequest();
-    const accessToken = request.cookies?.sb_access_token; // TODO: retrieve the token based on your logic
+    // // public route인 경우 인증을 건너뛴다
+    // if (isPublic) {
+    //   return true;
+    // }
 
-    if (!accessToken) {
-      throw new UnauthorizedException('Access token is missing');
-    }
+    // const request = context.switchToHttp().getRequest();
+    // const accessToken = request.cookies?.sb_access_token; // TODO: retrieve the token based on your logic
 
-    try {
-      // request 객체에 사용자 정보 추가
-      const user = {}; // TODO: get user info
-      request.user = user;
-      return true;
-    } catch (error) {
-      throw new UnauthorizedException('Invalid or expired session');
-    }
+    // if (!accessToken) {
+    //   throw new UnauthorizedException('Access token is missing');
+    // }
+
+    // try {
+    //   // request 객체에 사용자 정보 추가
+    //   const user = {}; // TODO: get user info
+    //   request.user = user;
+    //   return true;
+    // } catch (error) {
+    //   throw new UnauthorizedException('Invalid or expired session');
+    // }
   }
 }
