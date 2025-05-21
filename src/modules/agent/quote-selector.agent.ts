@@ -1,15 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { Agent } from './agent.interface';
-import { McpContext } from 'src/modules/engine/mcp-context.interface';
 import * as quotes from '../../data/quotes.json';
 
 @Injectable()
-export class QuoteSelectorAgent implements Agent {
-  name = 'QuoteSelectorAgent';
+export class QuoteSelectorAgent {
+  async handle(params: any) {
+    const { emotionTag } = params;
+    const tag = (emotionTag ?? '').toLowerCase();
 
-  async process(context: McpContext): Promise<McpContext> {
-    const tag = context.emotionTag?.toLowerCase() ?? '';
-    const filtered = quotes.filter((q) =>
+    const filtered = quotes.filter((q: any) =>
       q.tags.map((t: string) => t.toLowerCase()).includes(tag),
     );
 
@@ -18,7 +16,6 @@ export class QuoteSelectorAgent implements Agent {
         ? filtered[Math.floor(Math.random() * filtered.length)]
         : quotes[Math.floor(Math.random() * quotes.length)];
 
-    context.selectedQuote = selected;
-    return context;
+    return { selectedQuote: selected };
   }
 }

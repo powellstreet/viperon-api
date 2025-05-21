@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-
-import { McpEngineService } from './mcp-engine.service';
+import { McpController } from './mcp.controller';
+import { McpService } from './mcp.service';
 import { OpenAiService } from '../llm/openai.service';
 
 import { ContextAnalyzerAgent } from '../agent/context-analyzer.agent';
@@ -8,12 +8,13 @@ import { QuoteSelectorAgent } from '../agent/quote-selector.agent';
 import { CounselorAgent } from '../agent/counselor.agent';
 
 @Module({
+  controllers: [McpController],
   providers: [
-    McpEngineService,
+    McpService,
     OpenAiService,
     ContextAnalyzerAgent,
-    CounselorAgent,
     QuoteSelectorAgent,
+    CounselorAgent,
   ],
 })
-export class EngineModule {}
+export class McpModule {}

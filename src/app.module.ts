@@ -5,18 +5,23 @@ import { AuthGuard } from './common/guards';
 // modules
 import { AgentModule } from './modules/agent/agent.module';
 import { ConfigureModule } from './config/config.module';
-import { CounselingModule } from './modules/counseling/counseling.module';
 import { OpenAiService } from './modules/llm/openai.service';
-import { EngineModule } from './modules/engine/engine.module';
+import { McpModule } from './modules/mcp/mcp.module';
+import { ContextAnalyzerAgent } from './modules/agent/context-analyzer.agent';
+import { QuoteSelectorAgent } from './modules/agent/quote-selector.agent';
+import { CounselorAgent } from './modules/agent/counselor.agent';
 
 @Module({
-  imports: [AgentModule, ConfigureModule, CounselingModule, EngineModule],
+  imports: [AgentModule, ConfigureModule, McpModule],
   providers: [
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
     },
     OpenAiService,
+    ContextAnalyzerAgent,
+    QuoteSelectorAgent,
+    CounselorAgent,
   ],
 })
 export class AppModule {}
